@@ -5,7 +5,7 @@ module AnabolicSteroid
   class Client
     attr_accessor :config_file
 
-    def initalize(url, config_path, options = {})
+    def initialize(url, config_path, options = {})
       @url = url
       options.each do |key, value|
         instance_variable_set("@#{key}", value)
