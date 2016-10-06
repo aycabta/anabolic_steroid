@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["aycabta@gmail.com"]
 
   spec.summary       = %q{Great Building History}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.description   = %q{AnabolicSteroid scrapes websites what have some entries and compile statistics.}
   spec.homepage      = "https://github.com/aycabta/anabolic_steroid"
   spec.license       = "MIT"
 
