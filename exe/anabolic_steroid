@@ -15,4 +15,11 @@ end
 
 url, config_path = ARGV
 
+unless File.exists?(config_path)
+  config_path
+  puts "Configration file not found: #{config_path}"
+  usage
+  exit 2
+end
+
 as = AnabolicSteroid::Client.new(url, config_path)
