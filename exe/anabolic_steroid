@@ -4,4 +4,13 @@ $: << File.expand_path("../../lib/", __FILE__)
 
 require 'anabolic_steroid'
 
+def usage
+  puts 'usage: anabolic_steroid URL config'
+end
+
+if ARGV.size != 2
+  usage
+  exit 1
+end
+
 as = AnabolicSteroid::Client.new(ARGV[0], ARGV[1])
