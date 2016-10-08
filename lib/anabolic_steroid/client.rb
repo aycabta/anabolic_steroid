@@ -19,15 +19,16 @@ module AnabolicSteroid
     def each(*args, &block)
       while @next_url
         @agent.get(@next_url) do |page|
-          retrieve_date(block, *args)
+          retrieve_date(page, block, *args)
           @next_url = page.parser.xpath(@config.next_page_xpath).to_s
         end
+        break
       end
     end
 
   private
 
-    def retrieve_date(block, *args)
+    def retrieve_date(page, block, *args)
       unless @config.entry_link_xpath.nil?
         page.parser.xpath(@config.entry_link_xpath).each do |entry|
           @agent.get(entry.href.to_s) do |entry_page|
