@@ -1,11 +1,15 @@
-require 'test_helper'
+require 'helper'
 
-class AnabolicSteroidTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::AnabolicSteroid::VERSION
+describe AnabolicSteroid do
+  describe "version number" do
+    it "must be had" do
+      refute_nil(::AnabolicSteroid::VERSION)
+    end
   end
 
-  def test_it_does_something_useful
-    assert false
+  describe "test" do
+    it "must be something useful" do
+      assert false
+    end
   end
 end
