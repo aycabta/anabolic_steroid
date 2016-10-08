@@ -23,3 +23,6 @@ unless File.exists?(config_path)
 end
 
 as = AnabolicSteroid::Client.new(url, config_path)
+as.each do |data|
+  puts data
+end
