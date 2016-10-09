@@ -20,7 +20,14 @@ module AnabolicSteroid
       while @next_url
         @agent.get(@next_url) do |page|
           retrieve_date(page, block, *args)
-          @next_url = page.parser.xpath(@config.next_page_link_xpath)
+          hit = page.parser.xpath(@config.next_page_link_xpath)
+          if hit.empty?
+            @next_url = nil
+          else
+            link = page.link_with(hit[0])
+            absolute_link = page.uri.merge(link.uri).to_s
+            @next_url = absolute_link
+          end
         end
         break
       end
