@@ -37,7 +37,9 @@ module AnabolicSteroid
     def retrieve_date(page, block, *args)
       unless @config.entry_link_xpath.nil?
         page.parser.xpath(@config.entry_link_xpath).each do |entry|
-          @agent.get(entry.href.to_s) do |entry_page|
+          link = page.link_with(entry)
+          absolute_link = page.uri.merge(link.uri).to_s
+          @agent.get(absolute_link) do |entry_page|
             block.call(to_date(entry_page.parser.xpath(@config.entry_date_xpath).first.to_s))
           end
         end
