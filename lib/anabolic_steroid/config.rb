@@ -2,7 +2,7 @@ require 'yaml'
 
 module AnabolicSteroid
   class Config
-    attr_accessor :entry_date_xpath, :entry_link_xpath, :next_page_xpath
+    attr_accessor :entry_date_xpath, :entry_link_xpath, :next_page_link_xpath
 
     def initialize(path)
       if File.exists?(path)
