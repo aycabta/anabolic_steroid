@@ -29,7 +29,6 @@ module AnabolicSteroid
             @next_url = absolute_link
           end
         end
-        break
       end
     end
 
