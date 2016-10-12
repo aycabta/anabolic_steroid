@@ -5,12 +5,8 @@ module AnabolicSteroid
   class Client
     attr_accessor :config_file
 
-    def initialize(url, config_path, options = {})
+    def initialize(url, config)
       @url = url
-      options.each do |key, value|
-        instance_variable_set("@#{key}", value)
-      end
-      yield(self) if block_given?
       @agent = Mechanize.new
       @config = AnabolicSteroid::Config.new(config_path)
       @next_url = @url
