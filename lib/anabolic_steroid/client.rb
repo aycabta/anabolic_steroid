@@ -43,7 +43,12 @@ module AnabolicSteroid
 
     def match(page, key)
       pattern = @config[key]
-      page.parser.xpath(pattern[:matcher])
+      case pattern[:type]
+      when :xpath
+        page.parser.xpath(pattern[:matcher])
+      when :css_selector
+        page.search(pattern[:matcher])
+      end
     end
   end
 end

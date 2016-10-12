@@ -21,6 +21,15 @@ module AnabolicSteroid
       end
     end
 
+    def css_selector(key, value)
+      case key
+      when :entry_link, :next_page_link
+        @config[key] = { type: :css_selector, matcher: value }
+      else
+        throw "Unknown key for css_selector: #{key}"
+      end
+    end
+
     def entry(*args, &block)
       @entry_proc = block
     end
