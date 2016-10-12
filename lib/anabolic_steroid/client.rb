@@ -1,4 +1,3 @@
-require 'anabolic_steroid/config'
 require 'mechanize'
 
 module AnabolicSteroid
