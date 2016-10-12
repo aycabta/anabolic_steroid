@@ -16,7 +16,7 @@ module AnabolicSteroid
       while @next_url
         @agent.get(@next_url) do |page|
           retrieve(page, block, *args)
-          hit = page.parser.xpath(@config.next_page_link_xpath)
+          hit = match(page, :next_page_link)
           if hit.empty?
             @next_url = nil
           else
@@ -31,7 +31,7 @@ module AnabolicSteroid
   private
 
     def retrieve(page, block, *args)
-      hit = page.parser.xpath(@config.entry_link_xpath)
+      hit = match(page, :entry_link)
       hit.each do |entry|
         link = page.link_with(entry)
         absolute_link = page.uri.merge(link.uri).to_s
@@ -39,6 +39,11 @@ module AnabolicSteroid
           block.call(entry_page)
         end
       end
+    end
+
+    def match(page, key)
+      pattern = @config[key]
+      page.parser.xpath(pattern[:matcher])
     end
   end
 end

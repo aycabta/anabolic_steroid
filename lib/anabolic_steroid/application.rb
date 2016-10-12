@@ -1,7 +1,7 @@
 module AnabolicSteroid
   class Application
-    def initialize(config = nil)
-      @config = config || AnabolicSteroid::Config.new
+    def initialize
+      @config = {}
     end
 
     def config(*args, &block)
@@ -14,10 +14,8 @@ module AnabolicSteroid
 
     def xpath(key, value)
       case key
-      when :entry_link
-        @config.entry_link_xpath = value
-      when :next_page_link
-        @config.next_page_link_xpath = value
+      when :entry_link, :next_page_link
+        @config[key] = { type: :xpath, matcher: value }
       else
         throw "Unknown key for set_xpath: #{key}"
       end
