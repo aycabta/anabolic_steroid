@@ -15,7 +15,7 @@ module AnabolicSteroid
     def each(*args, &block)
       while @next_url
         @agent.get(@next_url) do |page|
-          retrieve(page, block, *args)
+          retrieve(page, block)
           hit = match(page, :next_page_link)
           if hit.empty?
             @next_url = nil
@@ -30,7 +30,7 @@ module AnabolicSteroid
 
   private
 
-    def retrieve(page, block, *args)
+    def retrieve(page, block)
       hit = match(page, :entry_link)
       hit.each do |entry|
         link = page.link_with(entry)
