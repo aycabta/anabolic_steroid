@@ -15,7 +15,7 @@ module AnabolicSteroid
     def each(*args, &block)
       while @next_url
         @agent.get(@next_url) do |page|
-          retrieve_date(page, block, *args)
+          retrieve(page, block, *args)
           hit = page.parser.xpath(@config.next_page_link_xpath)
           if hit.empty?
             @next_url = nil
@@ -30,20 +30,13 @@ module AnabolicSteroid
 
   private
 
-    def retrieve_date(page, block, *args)
-      unless @config.entry_link_xpath.nil?
-        hit = page.parser.xpath(@config.entry_link_xpath)
-        hit.each do |entry|
-          link = page.link_with(entry)
-          absolute_link = page.uri.merge(link.uri).to_s
-          @agent.get(absolute_link) do |entry_page|
-            date_str = entry_page.parser.xpath(@config.entry_date_xpath).first.to_s
-            block.call(to_date(date_str))
-          end
-        end
-      else
-        page.parser.xpath(@config.entry_date_xpath).each do |date|
-          block.call(to_date(date.to_s))
+    def retrieve(page, block, *args)
+      hit = page.parser.xpath(@config.entry_link_xpath)
+      hit.each do |entry|
+        link = page.link_with(entry)
+        absolute_link = page.uri.merge(link.uri).to_s
+        @agent.get(absolute_link) do |entry_page|
+          block.call(entry_page)
         end
       end
     end
