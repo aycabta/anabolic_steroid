@@ -3,6 +3,7 @@ require 'mechanize'
 
 module AnabolicSteroid
   class Client
+    include Enumerable
     attr_accessor :config_file
 
     def initialize(url, config)
@@ -13,6 +14,20 @@ module AnabolicSteroid
     end
 
     def each(*args, &block)
+      if !block_given?
+        Enumerator.new do |yielder|
+          block = proc { |entry_page|
+            yielder << entry_page
+          }
+          loop(block)
+        end
+      else
+        loop(block)
+        self
+      end
+    end
+
+    def loop(block)
       while @next_url
         @agent.get(@next_url) do |page|
           retrieve(page, block)
