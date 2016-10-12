@@ -3,26 +3,19 @@
 $: << File.expand_path("../../lib/", __FILE__)
 
 require 'anabolic_steroid'
+require 'anabolic_steroid/application'
+
+@app = AnabolicSteroid::Application.new
+
+extend Forwardable
+def_delegator(:@app, :config)
+def_delegator(:@app, :entry)
+
+open('Steroidfile', 'r') do |f|
+  eval(f.read)
+end
+@app.run
 
 def usage
-  puts 'usage: anabolic_steroid URL config'
-end
-
-if ARGV.size != 2
-  usage
-  exit 1
-end
-
-url, config_path = ARGV
-
-unless File.exists?(config_path)
-  config_path
-  puts "Configration file not found: #{config_path}"
-  usage
-  exit 2
-end
-
-as = AnabolicSteroid::Client.new(url, config_path)
-as.each do |data|
-  puts data
+  puts 'usage: anabolic_steroid'
 end
