@@ -8,7 +8,7 @@ module AnabolicSteroid
     def initialize(url, config)
       @url = url
       @agent = Mechanize.new
-      @config = AnabolicSteroid::Config.new(config_path)
+      @config = config
       @next_url = @url
     end
 
