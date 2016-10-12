@@ -1,7 +1,6 @@
 # vim: set filetype=ruby:
 
 config do
-  puts 'hogehoge'
   url 'https://www.whitehouse.gov/blog'
   xpath :next_page_link, "//div[@class=\"page-load-next\"]/a"
   xpath :entry_link, "//h2[contains(@class, \"node-title\")]/a[@class=\"node-blog_post-name-link\"]"
