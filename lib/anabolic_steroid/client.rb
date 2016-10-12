@@ -40,9 +40,5 @@ module AnabolicSteroid
         end
       end
     end
-
-    def to_date(str)
-      str.to_s
-    end
   end
 end
