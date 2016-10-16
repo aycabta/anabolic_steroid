@@ -34,9 +34,14 @@ module AnabolicSteroid
       @entry_proc = block
     end
 
+    def post_process(*args, &block)
+      @post_process_proc = block
+    end
+
     def run
       @as = AnabolicSteroid::Client.new(@url, @config)
       @as.each(&@entry_proc) unless @entry_proc.nil?
+      @post_process_proc.call unless @post_process_proc.nil?
     end
   end
 end

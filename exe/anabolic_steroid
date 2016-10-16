@@ -10,6 +10,7 @@ require 'anabolic_steroid/application'
 extend Forwardable
 def_delegator(:@app, :config)
 def_delegator(:@app, :entry)
+def_delegator(:@app, :post_process)
 
 open('Steroidfile', 'r') do |f|
   eval(f.read)
