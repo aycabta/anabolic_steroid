@@ -36,7 +36,7 @@ module AnabolicSteroid
 
     def run
       @as = AnabolicSteroid::Client.new(@url, @config)
-      @as.each(&@entry_proc)
+      @as.each(&@entry_proc) unless @entry_proc.nil?
     end
   end
 end
