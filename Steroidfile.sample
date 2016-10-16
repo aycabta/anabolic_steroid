@@ -6,6 +6,12 @@ config do
   xpath :entry_link, "//h2[contains(@class, \"node-title\")]/a[@class=\"node-blog_post-name-link\"]"
 end
 
+results = []
+
 entry do |page|
-  puts page.parser.xpath('//title')
+  results << page.parser.xpath('//title')
+end
+
+post_process do
+  puts results
 end
