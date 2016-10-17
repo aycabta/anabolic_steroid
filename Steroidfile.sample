@@ -1,4 +1,5 @@
 # vim: set filetype=ruby:
+require 'date'
 
 config do
   url 'https://www.whitehouse.gov/blog'
@@ -9,7 +10,8 @@ end
 results = []
 
 entry do |page|
-  results << page.parser.xpath('//title')
+  date = page.search('div.panel-col-section-content-first div.pane-forall-blog-post-author-pane')[0].text.gsub(/\s*(\S.+) at (.+) by .+$/m, '\1 \2')
+  results << DateTime.strptime(date.gsub('ET', 'EST'), '%B %d, %Y %I:%M %p %Z')
 end
 
 post_process do
